@@ -8,6 +8,12 @@ public class Kanten {
     private Knoten w;
     private int kosten;
 
+    public Kanten(Knoten v, Knoten w, int kosten) {
+        this.v = v;
+        this.w = w;
+        this.kosten = kosten;
+    }
+
     public Knoten getV() {
         return v;
     }
