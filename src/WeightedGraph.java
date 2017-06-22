@@ -7,18 +7,37 @@ import java.util.regex.Pattern;
  * Created by Janine on 21.06.17.
  */
 public class WeightedGraph implements GraphInterface {
-
-  private ArrayList<Node> nodes = new ArrayList<>();
+  private ArrayList<Vertice> nodes = new ArrayList<>();
   private ArrayList<Edge> edges = new ArrayList<>();
   private Edge[] path = new Edge[edges.size()];
 
   public static void main(String[] args) {
     System.out.println("hello world");
-    WeightedGraph wg = new WeightedGraph();
-    wg.processRawData();
-    wg.printNodes();
-    wg.printEdges();
+    WeightedGraph graph = new WeightedGraph();
+    graph.processRawData();
+    graph.printVertices();
+    graph.printEdges();
+
   }
+
+    public void findShortestPath(Vertice a, Vertice b){
+        int i = 0;
+        int pathLength = 0;
+        ArrayList<Edge> list = a.getListWithEdges();
+
+        for (Edge edge : list) {
+            Vertice w = edge.getW();
+            i++;
+
+            if (w == b){
+                pathLength = i;
+            }else{
+                a = edge.getW();
+                list = a.getListWithEdges();
+            }
+        }
+        System.out.println(pathLength);
+    }
 
   private String rawData = "1\t2,1\t8,2\n" +
           "2\t1,1\t3,1\n" +
@@ -30,7 +49,7 @@ public class WeightedGraph implements GraphInterface {
           "8\t7,1\t1,2";
 
   public void processRawData() {
-    createNodes();
+    createVertices();
 
     String regex = "(\\d)\\s(\\d),(\\d)\\s(\\d),(\\d)";
     Pattern pattern = Pattern.compile(regex);
@@ -42,14 +61,14 @@ public class WeightedGraph implements GraphInterface {
         Matcher matcher = pattern.matcher(line);
         while (matcher.find()) {
           int id = Integer.parseInt(matcher.group(1));
-          Node node = getNode(id);
+          Vertice node = getVertice(id);
           int v = Integer.parseInt(matcher.group(2));
           int vWeight = Integer.parseInt(matcher.group(3));
           int w = Integer.parseInt(matcher.group(4));
           int wWeight = Integer.parseInt(matcher.group(5));
-          Edge kante1 = new Edge(node, getNode(v), vWeight);
+          Edge kante1 = new Edge(node, getVertice(v), vWeight);
           edges.add(kante1);
-          Edge kante2 = new Edge(node, getNode(w), wWeight);
+          Edge kante2 = new Edge(node, getVertice(w), wWeight);
           edges.add(kante2);
           System.out.println("1: " + matcher.group(1));
           System.out.println("v: " + matcher.group(2) + " → weight: " + matcher.group(3));
@@ -60,10 +79,10 @@ public class WeightedGraph implements GraphInterface {
     scanner.close();
   }
 
-  private void createNodes() {
-    int totalNodes = countLines(rawData);
-    for (int i = 1; i <= totalNodes; i++) {
-      Node node = new Node(i, String.valueOf(i));
+  private void createVertices() {
+    int totalVertices = countLines(rawData);
+    for (int i = 1; i <= totalVertices; i++) {
+      Vertice node = new Vertice(i, String.valueOf(i));
       this.nodes.add(node);
     }
   }
@@ -73,8 +92,8 @@ public class WeightedGraph implements GraphInterface {
     return lines.length;
   }
 
-  private Node getNode(int searchId) {
-    for (Node node : nodes) {
+  private Vertice getVertice(int searchId) {
+    for (Vertice node : nodes) {
       if (node.getId() == searchId) {
         return node;
       }
@@ -82,8 +101,8 @@ public class WeightedGraph implements GraphInterface {
     return null;
   }
 
-  private void printNodes() {
-    for (Node node : nodes) {
+  private void printVertices() {
+    for (Vertice node : nodes) {
       System.out.println(node.getId());
     }
   }
@@ -94,3 +113,4 @@ public class WeightedGraph implements GraphInterface {
     }
   }
 }
+
