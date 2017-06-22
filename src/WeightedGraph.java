@@ -17,6 +17,7 @@ public class WeightedGraph implements GraphInterface {
     graph.processRawData();
     graph.printVertices();
     graph.printEdges();
+    graph.findShortestPath(graph.getVertice(1),graph.getVertice(1));
 
   }
 
@@ -36,7 +37,7 @@ public class WeightedGraph implements GraphInterface {
                 list = a.getListWithEdges();
             }
         }
-        System.out.println(pathLength);
+        System.out.println("Shortest Path Length: " + pathLength);
     }
 
   private String rawData = "1\t2,1\t8,2\n" +
