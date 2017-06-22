@@ -3,7 +3,7 @@
  */
 public interface GraphInterface {
 
-    public void addKnotenAndKanten();
+  public void processRawData();
 
 
 }
