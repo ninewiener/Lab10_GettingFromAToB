@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -8,6 +7,7 @@ public class Vertice {
   private int id;
   private String name;
   private ArrayList<Edge> edges = new ArrayList<>();
+  private boolean discovered = false;
 
   public Vertice(int id, String name) {
     this.id = id;
@@ -26,8 +26,20 @@ public class Vertice {
         this.name = name;
     }*/
 
-  public ArrayList<Edge> getListWithEdges(){
+  public ArrayList<Edge> getListWithEdges() {
     return edges;
+  }
+
+  public void addEdge(Edge e) {
+    edges.add(e);
+  }
+
+  public void setDiscovered() {
+    discovered = true;
+  }
+
+  public boolean isDiscovered() {
+    return discovered;
   }
 
 }
