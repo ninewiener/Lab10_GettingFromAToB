@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
@@ -8,28 +12,49 @@ import java.util.regex.Pattern;
  * Created by Janine on 21.06.17.
  */
 public class WeightedGraph implements GraphInterface {
-
+  private static final String FILE = "graph1.txt";
   private ArrayList<Vertice> vertices = new ArrayList<>();
   private ArrayList<Edge> edges = new ArrayList<>();
   //private Edge[] path = new Edge[edges.size()];
   private Stack<Edge> path = new Stack<>();
-  private String rawData = "1\t2,1\t8,2\n" +
+  private String rawData = "";
+  /* private String rawData = "1\t2,1\t8,2\n" +
           "2\t1,1\t3,1\n" +
           "3\t2,1\t4,1\n" +
           "4\t3,1\t5,1\n" +
           "5\t4,1\t6,1\n" +
           "6\t5,1\t7,1\n" +
           "7\t6,1\t8,1\n" +
-          "8\t7,1\t1,2";
+          "8\t7,1\t1,2"; */
+  private BufferedReader br;
+  private FileReader fr;
 
   public static void main(String[] args) {
     System.out.println("hello world");
     WeightedGraph graph = new WeightedGraph();
+    graph.readFile();
     graph.processRawData();
     graph.printVertices();
     graph.printEdges();
     //graph.findShortestPath(graph.getVertice(1), graph.getVertice(5), 0);
-    graph.depthFirstSearch(graph, graph.getVertice(3), graph.getVertice(5), 0);
+    graph.depthFirstSearch(graph, graph.getVertice(3), graph.getVertice(5));
+  }
+
+  private void readFile() {
+    try {
+      br = new BufferedReader(new FileReader(FILE));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    String currentLine;
+    try {
+      while ((currentLine = br.readLine()) != null) {
+        rawData += currentLine + "\n";
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    System.out.println(rawData);
   }
 
   private static int countLines(String str) {
@@ -57,10 +82,10 @@ public class WeightedGraph implements GraphInterface {
     System.out.println("Shortest Path Length: " + pathLength);
   } */
 
-  public void depthFirstSearch(WeightedGraph graph, Vertice v, Vertice end, int steps) {
+  public void depthFirstSearch(WeightedGraph graph, Vertice v, Vertice end) {
     v.setDiscovered();
     if (v == end) {
-      System.out.println("found path, took " + steps + " steps : Path " + path);
+      System.out.println("found path, took " + path.size() + " steps : Path " + path);
       for (Edge e : path) {
         System.out.print(e.getV().getId() + " → ");
       }
@@ -70,7 +95,7 @@ public class WeightedGraph implements GraphInterface {
       Vertice w = edge.getW();
       if (!w.isDiscovered()) {
         path.add(edge);
-        graph.depthFirstSearch(graph, w, end, steps + 1);
+        graph.depthFirstSearch(graph, w, end);
       }
     }
   }

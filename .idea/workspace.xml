@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fddd91ac-2a61-42d6-847d-28f1a6f713a8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Vertice.java" afterPath="$PROJECT_DIR$/src/Vertice.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WeightedGraph.java" afterPath="$PROJECT_DIR$/src/WeightedGraph.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -36,8 +34,8 @@
       <file leaf-file-name="WeightedGraph.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/WeightedGraph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="70" column="30" lean-forward="true" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
+            <state relative-caret-position="412">
+              <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -107,7 +105,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="178" />
+    <option name="x" value="765" />
     <option name="y" value="23" />
     <option name="width" value="838" />
     <option name="height" value="962" />
@@ -723,15 +721,15 @@
       <workItem from="1498170351189" duration="222000" />
       <workItem from="1498207128922" duration="443000" />
       <workItem from="1498207596630" duration="91000" />
-      <workItem from="1498507725426" duration="3415000" />
+      <workItem from="1498507725426" duration="5170000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5163000" />
+    <option name="totallyTimeSpent" value="6918000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="178" y="23" width="838" height="962" extended-state="0" />
+    <frame x="765" y="23" width="838" height="962" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -956,8 +954,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/WeightedGraph.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="70" column="30" lean-forward="true" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
+        <state relative-caret-position="412">
+          <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
           <folding />
         </state>
       </provider>
