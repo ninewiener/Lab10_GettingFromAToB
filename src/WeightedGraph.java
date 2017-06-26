@@ -88,8 +88,10 @@ public class WeightedGraph implements GraphInterface {
           edges.add(edge1);
           Edge edge2 = new Edge(vertice, getVertice(w), wWeight);
           edges.add(edge2);
-          vertice.addEdge(edge1);
-          vertice.addEdge(edge2);
+          if (vertice != null) {
+            vertice.addEdge(edge1);
+            vertice.addEdge(edge2);
+          }
           System.out.println("1: " + matcher.group(1));
           System.out.println("v: " + matcher.group(2) + " → weight: " + matcher.group(3));
           System.out.println("w: " + matcher.group(4) + " → weight: " + matcher.group(5));
