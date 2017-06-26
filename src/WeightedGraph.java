@@ -8,26 +8,13 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by Janine on 21.06.17.
- */
 public class WeightedGraph implements GraphInterface {
   private static final String FILE = "graph1.txt";
   private ArrayList<Vertice> vertices = new ArrayList<>();
   private ArrayList<Edge> edges = new ArrayList<>();
-  //private Edge[] path = new Edge[edges.size()];
   private Stack<Edge> path = new Stack<>();
   private String rawData = "";
-  /* private String rawData = "1\t2,1\t8,2\n" +
-          "2\t1,1\t3,1\n" +
-          "3\t2,1\t4,1\n" +
-          "4\t3,1\t5,1\n" +
-          "5\t4,1\t6,1\n" +
-          "6\t5,1\t7,1\n" +
-          "7\t6,1\t8,1\n" +
-          "8\t7,1\t1,2"; */
   private BufferedReader br;
-  private FileReader fr;
 
   public static void main(String[] args) {
     System.out.println("hello world");
@@ -36,7 +23,6 @@ public class WeightedGraph implements GraphInterface {
     graph.processRawData();
     graph.printVertices();
     graph.printEdges();
-    //graph.findShortestPath(graph.getVertice(1), graph.getVertice(5), 0);
     graph.depthFirstSearch(graph, graph.getVertice(3), graph.getVertice(5));
   }
 
@@ -61,26 +47,6 @@ public class WeightedGraph implements GraphInterface {
     String[] lines = str.split("\r\n|\r|\n");
     return lines.length;
   }
-
-  /* public void findShortestPath(Vertice a, Vertice b, int pathLength) {
-    int i = 0;
-    //int pathLength = 0;
-    ArrayList<Edge> list = a.getListWithEdges();
-
-    System.out.println(list);
-    for (Edge edge : list) {
-      Vertice w = edge.getW();
-      i++;
-
-      if (w == b) {
-        pathLength += i;
-      } else {
-        //a = w;
-        findShortestPath(a, w, pathLength);
-      }
-    }
-    System.out.println("Shortest Path Length: " + pathLength);
-  } */
 
   public void depthFirstSearch(WeightedGraph graph, Vertice v, Vertice end) {
     v.setDiscovered();
