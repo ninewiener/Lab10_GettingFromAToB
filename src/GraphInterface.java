@@ -3,7 +3,7 @@
  */
 public interface GraphInterface {
 
-  public void processRawData();
+  void processRawData(String rawData);
 
 
 }

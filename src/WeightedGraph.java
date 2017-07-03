@@ -1,4 +1,3 @@
-import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
@@ -12,10 +11,8 @@ public class WeightedGraph implements GraphInterface {
   private ArrayList<Edge> edges = new ArrayList<>();
   //private Vertex[][] graph = new Vertex[][]{};
   private GraphAdjacencyList adjacencyList;
-  private int[][] adjacencyMatrix;
+  private Edge[][] adjacencyMatrix;
   private Stack<Edge> path = new Stack<>();
-  private String rawData = "";
-  private BufferedReader br;
 
   public WeightedGraph() {
 
@@ -24,29 +21,34 @@ public class WeightedGraph implements GraphInterface {
   public static void main(String[] args) {
     WeightedGraph graph = new WeightedGraph();
     GraphFileReader fileReader = new GraphFileReader("graph1.txt");
-    graph.rawData = fileReader.read();
-    graph.processRawData();
+    String rawData = fileReader.read();
+    graph.processRawData(rawData);
     // graph.printVertices();
     graph.initAdjacencyList();
     graph.initAdjacencyMatrix();
     graph.printEdges();
     graph.depthFirstSearch(graph.getVertice(3), graph.getVertice(5));
     System.out.println("\n" + graph.adjacencyList.isConnected(graph.vertices.get(1), graph.vertices.get(2)));
+    System.out.println("\n" + graph.getEdge(graph.vertices.get(1), graph.vertices.get(3)));
   }
 
   private void initAdjacencyMatrix() {
-    adjacencyMatrix = new int[vertices.size()][vertices.size()];
+    adjacencyMatrix = new Edge[vertices.size() + 1][vertices.size() + 1];
     // init with zeros
     for (int i = 0; i < vertices.size(); i++) {
       for (int j = 0; j < vertices.size(); j++) {
-        adjacencyMatrix[i][j] = 0;
+        adjacencyMatrix[i][j] = null;
       }
     }
 
     // put in actual weights for existing edges
     for (Edge edge : edges) {
-      adjacencyMatrix[edge.getV().getId()][edge.getW().getId()] = edge.getWeight();
+      adjacencyMatrix[edge.getV().getId()][edge.getW().getId()] = edge;
     }
+  }
+
+  private Edge getEdge(Vertex v, Vertex w) {
+    return adjacencyMatrix[v.getId()][w.getId()];
   }
 
   private void initAdjacencyList() {
@@ -81,8 +83,8 @@ public class WeightedGraph implements GraphInterface {
     }
   }
 
-  public void processRawData() {
-    createVertices();
+  public void processRawData(String rawData) {
+    createVertices(countLines(rawData));
 
     String regex = "(\\d)\\s(\\d),(\\d)\\s(\\d),(\\d)";
     Pattern pattern = Pattern.compile(regex);
@@ -119,8 +121,7 @@ public class WeightedGraph implements GraphInterface {
     scanner.close();
   }
 
-  private void createVertices() {
-    int totalVertices = countLines(rawData);
+  private void createVertices(int totalVertices) {
     for (int i = 1; i <= totalVertices; i++) {
       Vertex node = new Vertex(i, String.valueOf(i));
       this.vertices.add(node);
