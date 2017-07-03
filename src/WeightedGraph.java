@@ -12,6 +12,7 @@ public class WeightedGraph implements GraphInterface {
   private ArrayList<Edge> edges = new ArrayList<>();
   //private Vertex[][] graph = new Vertex[][]{};
   private GraphAdjacencyList adjacencyList;
+  private int[][] adjacencyMatrix;
   private Stack<Edge> path = new Stack<>();
   private String rawData = "";
   private BufferedReader br;
@@ -25,11 +26,27 @@ public class WeightedGraph implements GraphInterface {
     GraphFileReader fileReader = new GraphFileReader("graph1.txt");
     graph.rawData = fileReader.read();
     graph.processRawData();
-    graph.initAdjacencyList();
     // graph.printVertices();
+    graph.initAdjacencyList();
+    graph.initAdjacencyMatrix();
     graph.printEdges();
-    graph.depthFirstSearch(graph, graph.getVertice(3), graph.getVertice(5));
+    graph.depthFirstSearch(graph.getVertice(3), graph.getVertice(5));
     System.out.println("\n" + graph.adjacencyList.isConnected(graph.vertices.get(1), graph.vertices.get(2)));
+  }
+
+  private void initAdjacencyMatrix() {
+    adjacencyMatrix = new int[vertices.size()][vertices.size()];
+    // init with zeros
+    for (int i = 0; i < vertices.size(); i++) {
+      for (int j = 0; j < vertices.size(); j++) {
+        adjacencyMatrix[i][j] = 0;
+      }
+    }
+
+    // put in actual weights for existing edges
+    for (Edge edge : edges) {
+      adjacencyMatrix[edge.getV().getId()][edge.getW().getId()] = edge.getWeight();
+    }
   }
 
   private void initAdjacencyList() {
@@ -45,20 +62,21 @@ public class WeightedGraph implements GraphInterface {
     return lines.length;
   }
 
-  public void depthFirstSearch(WeightedGraph graph, Vertex v, Vertex end) {
-    v.setDiscovered();
-    if (v == end) {
+  public void depthFirstSearch(Vertex start, Vertex end) {
+    start.setDiscovered();
+    if (start == end) {
       System.out.println("found path, took " + path.size() + " steps : Path " + path);
       for (Edge e : path) {
         System.out.print(e.getV().getId() + " → ");
       }
       System.out.print(end.getId());
-    }
-    for (Edge edge : v.getListWithEdges()) {
-      Vertex w = edge.getW();
-      if (!w.isDiscovered()) {
-        path.add(edge);
-        graph.depthFirstSearch(graph, w, end);
+    } else {
+      for (Edge edge : start.getListWithEdges()) {
+        Vertex w = edge.getW();
+        if (!w.isDiscovered()) {
+          path.add(edge);
+          this.depthFirstSearch(w, end);
+        }
       }
     }
   }
