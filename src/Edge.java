@@ -29,7 +29,7 @@ public class Edge {
     this.w = w;
   }
 
-  public int getCost() {
+  public int getWeight() {
     return kosten;
   }
 

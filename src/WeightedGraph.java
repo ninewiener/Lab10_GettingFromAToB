@@ -1,34 +1,49 @@
 import java.io.BufferedReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WeightedGraph implements GraphInterface {
 
+  private static final boolean DEBUG = false;
   private ArrayList<Vertice> vertices = new ArrayList<>();
   private ArrayList<Edge> edges = new ArrayList<>();
   //private Vertice[][] graph = new Vertice[][]{};
-  private Map<Integer, List<Integer>> adjacencyList;
+  private GraphAdjacencyList adjacencyList;
   private Stack<Edge> path = new Stack<>();
   private String rawData = "";
   private BufferedReader br;
 
   public WeightedGraph() {
-    adjacencyList = new HashMap<>();
+
   }
 
   public static void main(String[] args) {
-    System.out.println("hello world");
     WeightedGraph graph = new WeightedGraph();
     GraphFileReader fileReader = new GraphFileReader("graph1.txt");
     graph.rawData = fileReader.read();
     graph.processRawData();
-    for (int i = 0; i < graph.vertices.size(); i++) {
-      graph.adjacencyList.put(i, new LinkedList<>());
-    }
-    graph.printVertices();
+    graph.initAdjacencyList();
+    graph.testAdjacencyList();
+    // graph.printVertices();
     graph.printEdges();
     graph.depthFirstSearch(graph, graph.getVertice(3), graph.getVertice(5));
+  }
+
+  private void initAdjacencyList() {
+    adjacencyList = new GraphAdjacencyList(vertices.size());
+    for (Edge edge : edges) {
+      adjacencyList.setEdge(edge.getV().getId(), edge.getW().getId(), edge.getWeight());
+    }
+    System.out.println("ADJACENCY LIST:\n" + adjacencyList.toString());
+  }
+
+  private void testAdjacencyList() {
+    for (Edge edge : edges) {
+      System.out.println(edge.getV().getId() + " " + edge.getW().getId() + " " + edge.getWeight());
+    }
   }
 
   private static int countLines(String str) {
@@ -80,9 +95,12 @@ public class WeightedGraph implements GraphInterface {
             vertice.addEdge(edge1);
             vertice.addEdge(edge2);
           }
-          System.out.println("1: " + matcher.group(1));
-          System.out.println("v: " + matcher.group(2) + " → weight: " + matcher.group(3));
-          System.out.println("w: " + matcher.group(4) + " → weight: " + matcher.group(5));
+          if (DEBUG) {
+            System.out.println(matcher.group(1));
+            System.out.println("v: " + matcher.group(2) + " → weight: " + matcher.group(3));
+            System.out.println("w: " + matcher.group(4) + " → weight: " + matcher.group(5));
+            System.out.println();
+          }
         }
       }
     }
@@ -114,7 +132,7 @@ public class WeightedGraph implements GraphInterface {
 
   private void printEdges() {
     for (Edge edge : edges) {
-      System.out.println("" + edge.getV().getId() + " → " + edge.getW().getId() + " (cost: " + edge.getCost() + ")");
+      System.out.println("" + edge.getV().getId() + " → " + edge.getW().getId() + " (cost: " + edge.getWeight() + ")");
     }
   }
 }
