@@ -26,24 +26,18 @@ public class WeightedGraph implements GraphInterface {
     graph.rawData = fileReader.read();
     graph.processRawData();
     graph.initAdjacencyList();
-    graph.testAdjacencyList();
     // graph.printVertices();
     graph.printEdges();
     graph.depthFirstSearch(graph, graph.getVertice(3), graph.getVertice(5));
+    System.out.println("\n" + graph.adjacencyList.isConnected(graph.vertices.get(1), graph.vertices.get(2)));
   }
 
   private void initAdjacencyList() {
     adjacencyList = new GraphAdjacencyList(vertices.size());
     for (Edge edge : edges) {
-      adjacencyList.setEdge(edge.getV().getId(), edge.getW().getId(), edge.getWeight());
+      adjacencyList.setEdge(edge);
     }
     System.out.println("ADJACENCY LIST:\n" + adjacencyList.toString());
-  }
-
-  private void testAdjacencyList() {
-    for (Edge edge : edges) {
-      System.out.println(edge.getV().getId() + " " + edge.getW().getId() + " " + edge.getWeight());
-    }
   }
 
   private static int countLines(String str) {

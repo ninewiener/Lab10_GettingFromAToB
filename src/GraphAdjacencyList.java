@@ -36,7 +36,7 @@ public class GraphAdjacencyList {
       while (count <= number_of_edges) {
         source = sc.nextInt();
         destination = sc.nextInt();
-        adjacencyList.setEdge(source, destination, 1);
+        //adjacencyList.setEdge(source, destination, 1);
         count++;
       }
 
@@ -62,20 +62,13 @@ public class GraphAdjacencyList {
   }
 
   /* Adds nodes in the Adjacency list for the corresponding vertex */
-  public boolean setEdge(int source, int destination, int weight) {
-    if (source > adjacencyList.size() || destination > adjacencyList.size()) {
-      System.out.println("the vertex entered in not present");
-      return false;
-    }
-    if (source == destination) {
-      System.out.println("self loop");
-      return false;
-    }
+  public void setEdge(Edge edge) {
+    int source = edge.getV().getId();
+    int destination = edge.getW().getId();
     List<Integer> slist = adjacencyList.get(source);
     slist.add(destination);
-    List<Integer> dlist = adjacencyList.get(destination);
-    dlist.add(source);
-    return true;
+    //List<Integer> dlist = adjacencyList.get(destination);
+    //dlist.add(source);
   }
 
   /* Returns the List containing the vertex joining the source vertex */
@@ -104,5 +97,14 @@ public class GraphAdjacencyList {
       result += "\n";
     }
     return result;
+  }
+
+  public boolean isConnected(Vertice v, Vertice w) {
+    List<Integer> adjacent = adjacencyList.get(v.getId());
+    for (int i = 0; i < adjacent.size(); i++) {
+      if (adjacent.get(i) == w.getId())
+        return true; // found connection
+    }
+    return false;
   }
 }
