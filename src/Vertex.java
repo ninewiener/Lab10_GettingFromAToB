@@ -3,13 +3,13 @@ import java.util.ArrayList;
 /**
  * Created by Janine on 21.06.17.
  */
-public class Vertice {
+public class Vertex {
   private int id;
   private String name;
   private ArrayList<Edge> edges = new ArrayList<>();
   private boolean discovered = false;
 
-  public Vertice(int id, String name) {
+  public Vertex(int id, String name) {
     this.id = id;
     this.name = name;
   }

@@ -99,7 +99,7 @@ public class GraphAdjacencyList {
     return result;
   }
 
-  public boolean isConnected(Vertice v, Vertice w) {
+  public boolean isConnected(Vertex v, Vertex w) {
     List<Integer> adjacent = adjacencyList.get(v.getId());
     for (int i = 0; i < adjacent.size(); i++) {
       if (adjacent.get(i) == w.getId())

@@ -3,29 +3,29 @@
  */
 public class Edge {
   //end und anfangsknoten
-  private Vertice v;
-  private Vertice w;
+  private Vertex v;
+  private Vertex w;
   private int kosten;
 
-  public Edge(Vertice v, Vertice w, int kosten) {
+  public Edge(Vertex v, Vertex w, int kosten) {
     this.v = v;
     this.w = w;
     this.kosten = kosten;
   }
 
-  public Vertice getV() {
+  public Vertex getV() {
     return v;
   }
 
-  public void setV(Vertice v) {
+  public void setV(Vertex v) {
     this.v = v;
   }
 
-  public Vertice getW() {
+  public Vertex getW() {
     return w;
   }
 
-  public void setW(Vertice w) {
+  public void setW(Vertex w) {
     this.w = w;
   }
 
