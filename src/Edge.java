@@ -5,12 +5,12 @@ public class Edge {
   //end und anfangsknoten
   private Vertex v;
   private Vertex w;
-  private int kosten;
+  private int weight;
 
-  public Edge(Vertex v, Vertex w, int kosten) {
+  public Edge(Vertex v, Vertex w, int weight) {
     this.v = v;
     this.w = w;
-    this.kosten = kosten;
+    this.weight = weight;
   }
 
   public Vertex getV() {
@@ -30,10 +30,10 @@ public class Edge {
   }
 
   public int getWeight() {
-    return kosten;
+    return weight;
   }
 
   public void setCost(int kosten) {
-    this.kosten = kosten;
+    this.weight = kosten;
   }
 }
