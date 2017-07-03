@@ -1,46 +1,34 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WeightedGraph implements GraphInterface {
-  private static final String FILE = "graph1.txt";
+
   private ArrayList<Vertice> vertices = new ArrayList<>();
   private ArrayList<Edge> edges = new ArrayList<>();
+  //private Vertice[][] graph = new Vertice[][]{};
+  private Map<Integer, List<Integer>> adjacencyList;
   private Stack<Edge> path = new Stack<>();
   private String rawData = "";
   private BufferedReader br;
 
+  public WeightedGraph() {
+    adjacencyList = new HashMap<>();
+  }
+
   public static void main(String[] args) {
     System.out.println("hello world");
     WeightedGraph graph = new WeightedGraph();
-    graph.readFile();
+    GraphFileReader fileReader = new GraphFileReader("graph1.txt");
+    graph.rawData = fileReader.read();
     graph.processRawData();
+    for (int i = 0; i < graph.vertices.size(); i++) {
+      graph.adjacencyList.put(i, new LinkedList<>());
+    }
     graph.printVertices();
     graph.printEdges();
     graph.depthFirstSearch(graph, graph.getVertice(3), graph.getVertice(5));
-  }
-
-  private void readFile() {
-    try {
-      br = new BufferedReader(new FileReader(FILE));
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-    String currentLine;
-    try {
-      while ((currentLine = br.readLine()) != null) {
-        rawData += currentLine + "\n";
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    System.out.println(rawData);
   }
 
   private static int countLines(String str) {
